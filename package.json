@@ -2,12 +2,12 @@
   "name": "custom-pc-builder",
   "version": "1.0.0",
   "description": "A comprehensive e-commerce platform for building custom PCs with advanced payment integration",
-  "main": "index.js",
+  "main": "backend/src/server.js",
   "scripts": {
     "install-all": "npm install && cd backend && npm install && cd ../frontend && npm install",
     "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev\"",
     "build": "cd frontend && npm run build",
-    "start": "cd backend && npm start",
+    "start": "node backend/src/server.js",
     "backend": "cd backend && npm run dev",
     "frontend": "cd frontend && npm run dev",
     "deploy": "cd frontend && npm run build"
@@ -25,6 +25,17 @@
   "license": "MIT",
   "devDependencies": {
     "concurrently": "^7.6.0"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.6.0",
+    "morgan": "^1.10.0",
+    "nodemailer": "^7.0.12",
+    "qrcode": "^1.5.4"
   },
   "engines": {
     "node": ">=16.0.0",

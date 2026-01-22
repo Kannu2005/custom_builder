@@ -21,6 +21,15 @@ app.get('/', (req, res) => {
   res.json({ message: 'Custom PC API is running' });
 });
 
+// Health check endpoint for Render
+app.get('/api/health', (req, res) => {
+  res.status(200).json({ 
+    status: 'OK', 
+    message: 'Custom PC Builder API is healthy',
+    timestamp: new Date().toISOString()
+  });
+});
+
 app.use('/api/auth', authRoutes);
 app.use('/api/components', componentRoutes);
 app.use('/api/builds', buildRoutes);
