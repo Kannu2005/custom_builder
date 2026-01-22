@@ -1,0 +1,44 @@
+===========================================
+.env FILE SETUP INSTRUCTIONS
+===========================================
+
+Backend folder mein manually .env file create karein:
+
+1. backend/ folder mein jayein
+2. Ek nayi file banayein jiska naam exactly ".env" ho (dot ke saath)
+3. Is file mein ye content paste karein:
+
+-------------------------------------------
+PORT=5000
+MONGODB_URI=mongodb+srv://dbuser:dbpass123@dbuser.vf0k9n2.mongodb.net/custompcbuilder?retryWrites=true&w=majority
+JWT_SECRET=custom_pc_builder_super_secret_jwt_key_2024_change_in_production
+
+# Email Configuration (Optional - for production)
+# For Gmail:
+# EMAIL_SERVICE=gmail
+# EMAIL_USER=your-email@gmail.com
+# EMAIL_PASS=your-app-password
+
+# For Custom SMTP:
+# SMTP_HOST=smtp.example.com
+# SMTP_PORT=587
+# SMTP_SECURE=false
+# SMTP_USER=your-email@example.com
+# SMTP_PASS=your-password
+# EMAIL_FROM=noreply@example.com
+
+# Note: If email not configured, system will use Ethereal Email (testing) or console log
+-------------------------------------------
+
+4. File save karein
+
+IMPORTANT:
+- File ka naam exactly ".env" hona chahiye (kisi bhi extension ke bina)
+- Windows mein agar file create karna mushkil ho to:
+  - Notepad open karein
+  - Content paste karein
+  - "Save As" karein
+  - File name: ".env" (quotes ke saath)
+  - "All Files" select karein type dropdown se
+
+===========================================
