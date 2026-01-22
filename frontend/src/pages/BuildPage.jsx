@@ -725,7 +725,7 @@ function BuildPage() {
                         </div>
                         
                         <div className="component-footer">
-                          <div className="component-price-modern">${component.price}</div>
+                          <div className="component-price-modern">₹{component.price}</div>
                           <div className={`component-stock-modern ${component.stock > 0 ? 'in-stock' : 'out-of-stock'}`}>
                             {component.stock > 0 ? `${component.stock} in stock` : 'Out of Stock'}
                           </div>
@@ -865,7 +865,7 @@ function BuildPage() {
                           <div className="selected-item-details">
                             <div className="component-name-small">{component.name}</div>
                             <div className="component-price-small">
-                              ${component.price} × {quantity} = ${itemTotal.toFixed(2)}
+                              ₹{component.price} × {quantity} = ₹{itemTotal.toFixed(2)}
                             </div>
                           </div>
                           <div className="selected-item-quantity">

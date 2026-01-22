@@ -179,7 +179,7 @@ function DashboardPage() {
                 <span className="stat-label">Selected</span>
               </div>
               <div className="stat-item">
-                <span className="stat-number">${subtotal.toFixed(0)}</span>
+                <span className="stat-number">₹{subtotal.toFixed(0)}</span>
                 <span className="stat-label">Total Value</span>
               </div>
             </div>
@@ -374,7 +374,7 @@ function DashboardPage() {
                     
                     <div className="build-card-footer">
                       <div className="build-price-section">
-                        <div className="price-main">${build.totalPrice?.toFixed(2) || '0.00'}</div>
+                        <div className="price-main">₹{build.totalPrice?.toFixed(2) || '0.00'}</div>
                         <div className="price-label">Total Price</div>
                       </div>
                       
@@ -446,7 +446,7 @@ function DashboardPage() {
                               </span>
                             </div>
                             <div className="build-summary-price">
-                              ${build.totalPrice?.toFixed(2) || '0.00'}
+                              ₹{build.totalPrice?.toFixed(2) || '0.00'}
                             </div>
                           </div>
                         ))

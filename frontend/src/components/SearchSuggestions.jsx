@@ -62,7 +62,7 @@ const SearchSuggestions = ({
             <div className="suggestion-details">
               <span className="suggestion-category">{component.category}</span>
               <span className="suggestion-brand">{component.brand} {component.model}</span>
-              <span className="suggestion-price">${component.price}</span>
+              <span className="suggestion-price">₹{component.price}</span>
             </div>
           </div>
         </div>

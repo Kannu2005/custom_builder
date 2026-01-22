@@ -283,7 +283,7 @@ function MyOrdersPage() {
                       <div className="detail-icon">💰</div>
                       <div className="detail-content">
                         <span className="detail-label">Total Amount</span>
-                        <span className="detail-value price">${order.totalAmount?.toFixed(2) || '0.00'}</span>
+                        <span className="detail-value price">₹{order.totalAmount?.toFixed(2) || '0.00'}</span>
                       </div>
                     </div>
                     
@@ -440,7 +440,7 @@ function MyOrdersPage() {
                   </div>
                   <div className="info-item">
                     <span className="info-label">Total Amount:</span>
-                    <span className="info-value price-large">${selectedOrder.totalAmount?.toFixed(2) || '0.00'}</span>
+                    <span className="info-value price-large">₹{selectedOrder.totalAmount?.toFixed(2) || '0.00'}</span>
                   </div>
                   <div className="info-item">
                     <span className="info-label">Payment Method:</span>

@@ -568,7 +568,7 @@ function AdminComponents() {
                   </div>
 
                   <div className="form-group">
-                    <label>Price ($) *</label>
+                    <label>Price (₹) *</label>
                     <input
                       type="number"
                       name="price"
@@ -850,7 +850,7 @@ function AdminComponents() {
                     </td>
                     <td className="price-cell">
                       <div className="price-display">
-                        <span className="price">${component.price}</span>
+                        <span className="price">₹{component.price}</span>
                         <button 
                           onClick={() => handleQuickPriceUpdate(component)}
                           className="quick-edit-btn"
@@ -904,7 +904,7 @@ function AdminComponents() {
                           ✏️
                         </button>
                         <button
-                          onClick={() => alert(`Product Details:\n\nName: ${component.name}\nBrand: ${component.brand}\nModel: ${component.model}\nPrice: $${component.price}\nStock: ${component.stock}\nStatus: ${component.status}\nDescription: ${component.description || 'N/A'}\nWarranty: ${component.warranty || 'N/A'} months`)}
+                          onClick={() => alert(`Product Details:\n\nName: ${component.name}\nBrand: ${component.brand}\nModel: ${component.model}\nPrice: ₹${component.price}\nStock: ${component.stock}\nStatus: ${component.status}\nDescription: ${component.description || 'N/A'}\nWarranty: ${component.warranty || 'N/A'} months`)}
                           className="quick-action-btn view"
                           title="View details"
                         >

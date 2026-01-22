@@ -55,7 +55,7 @@ function AdminOrders() {
         <p><strong>Email:</strong> ${order.userId?.email || 'N/A'}</p>
         <p><strong>Date:</strong> ${new Date(order.createdAt).toLocaleString()}</p>
         <p><strong>Status:</strong> ${order.status}</p>
-        <p><strong>Total Amount:</strong> $${order.totalAmount?.toFixed(2)}</p>
+        <p><strong>Total Amount:</strong> ₹{order.totalAmount?.toFixed(2)}</p>
         <hr>
         <p><strong>Build:</strong> ${order.build?.name || 'Custom Build'}</p>
         <p><strong>Components:</strong> ${Object.keys(order.components || {}).length} items</p>
@@ -191,7 +191,7 @@ function AdminOrders() {
                     </div>
                   </td>
                   <td className="amount-cell">
-                    <div className="order-amount">${order.totalAmount?.toFixed(2)}</div>
+                    <div className="order-amount">₹{order.totalAmount?.toFixed(2)}</div>
                   </td>
                   <td>
                     <select
@@ -282,7 +282,7 @@ function AdminOrders() {
                     </div>
                     <div className="info-item">
                       <span className="label">Total Amount:</span>
-                      <span className="value amount">${selectedOrder.totalAmount?.toFixed(2)}</span>
+                      <span className="value amount">₹{selectedOrder.totalAmount?.toFixed(2)}</span>
                     </div>
                   </div>
 
@@ -334,7 +334,7 @@ function AdminOrders() {
                           <div className="item-name">{selectedOrder.build.name}</div>
                           <div className="item-description">Custom PC Build</div>
                         </div>
-                        <div className="item-price">${selectedOrder.totalAmount?.toFixed(2)}</div>
+                        <div className="item-price">₹{selectedOrder.totalAmount?.toFixed(2)}</div>
                       </div>
                     )}
                     

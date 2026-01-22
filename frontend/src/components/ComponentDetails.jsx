@@ -51,7 +51,7 @@ const ComponentDetails = ({ component, onAddToBuild, onClose, isSelected, quanti
         <strong>Brand:</strong> {component.brand} {component.model}
       </div>
 
-      <div className="details-price-large">${component.price}</div>
+      <div className="details-price-large">₹{component.price}</div>
 
       <div className="details-stock">
         <span className={component.stock > 0 ? 'in-stock' : 'out-of-stock'}>

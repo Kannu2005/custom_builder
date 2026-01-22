@@ -227,7 +227,7 @@ function AdminDashboardPage() {
                   </div>
                   <div className="order-details">
                     <p><strong>User:</strong> {order.userId?.name || 'N/A'} ({order.userId?.email || 'N/A'})</p>
-                    <p><strong>Total:</strong> ${order.totalAmount}</p>
+                    <p><strong>Total:</strong> ₹{order.totalAmount}</p>
                     <p><strong>Date:</strong> {new Date(order.createdAt).toLocaleDateString()}</p>
                   </div>
                   <div className="order-actions">
@@ -367,7 +367,7 @@ function AdminDashboardPage() {
                 <div className="component-category">{component.category}</div>
                 <h3>{component.name}</h3>
                 <p>{component.brand} {component.model}</p>
-                <p><strong>Price:</strong> ${component.price}</p>
+                <p><strong>Price:</strong> ₹{component.price}</p>
                 <p><strong>Stock:</strong> {component.stock}</p>
                 <div className="component-actions">
                   <button

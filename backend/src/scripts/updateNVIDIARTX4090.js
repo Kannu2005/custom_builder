@@ -115,7 +115,7 @@ const updateNVIDIARTX4090 = async () => {
       'Value Proposition': 'Ultimate Performance',
       'Availability': 'Limited Supply',
       'Launch Date': 'October 2022',
-      'MSRP': '$1599 USD',
+      'MSRP': '₹1,32,999 INR',
       'Warranty': 'Limited Warranty',
       'Driver Support': 'Game Ready Drivers',
       'Software Bundle': 'GeForce Experience',

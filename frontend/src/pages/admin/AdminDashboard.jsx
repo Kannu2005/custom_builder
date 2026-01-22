@@ -164,7 +164,7 @@ function AdminDashboard() {
             </div>
             <div className="metric-item">
               <span className="metric-label">Revenue Generated:</span>
-              <span className="metric-value revenue">${stats?.monthlyRevenue?.toFixed(2) || '0.00'}</span>
+              <span className="metric-value revenue">₹{stats?.monthlyRevenue?.toFixed(2) || '0.00'}</span>
             </div>
           </div>
         </div>
@@ -231,7 +231,7 @@ function AdminDashboard() {
             <div className="stat-icon revenue">💰</div>
             <div className="stat-content">
               <h3>Monthly Revenue</h3>
-              <div className="stat-number">${stats?.monthlyRevenue?.toFixed(2) || '0.00'}</div>
+              <div className="stat-number">₹{stats?.monthlyRevenue?.toFixed(2) || '0.00'}</div>
               <div className="stat-change positive">Last 30 days</div>
             </div>
           </div>
@@ -283,14 +283,14 @@ function AdminDashboard() {
                         <div 
                           className="revenue-bar" 
                           style={{ height: `${height}%` }}
-                          title={`${monthData.revenue.toFixed(2)}`}
+                          title={`₹${monthData.revenue.toFixed(2)}`}
                         ></div>
                       </div>
                       <div className="revenue-bar-label">
                         {monthNames[monthData._id.month - 1]}
                       </div>
                       <div className="revenue-bar-value">
-                        ${monthData.revenue.toFixed(0)}
+                        ₹{monthData.revenue.toFixed(0)}
                       </div>
                     </div>
                   );
@@ -376,7 +376,7 @@ function AdminDashboard() {
                     <div className="customer-email">{order.userId?.email || 'N/A'}</div>
                   </div>
                   <div className="order-footer">
-                    <div className="order-amount">${order.totalAmount?.toFixed(2)}</div>
+                    <div className="order-amount">₹{order.totalAmount?.toFixed(2)}</div>
                     <div className="order-date">{new Date(order.createdAt).toLocaleDateString()}</div>
                   </div>
                 </div>

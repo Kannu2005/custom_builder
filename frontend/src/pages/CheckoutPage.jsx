@@ -823,7 +823,7 @@ function CheckoutPage() {
                           <div className="emi-details-modern">
                             <div className="emi-row-modern">
                               <span>Principal Amount:</span>
-                              <span>${build.totalPrice.toFixed(2)}</span>
+                              <span>₹{build.totalPrice.toFixed(2)}</span>
                             </div>
                             <div className="emi-row-modern">
                               <span>Interest Rate:</span>
@@ -843,7 +843,7 @@ function CheckoutPage() {
                             </div>
                             <div className="emi-row-modern total">
                               <span>Total Amount:</span>
-                              <span>${emiInfo.totalAmount.toFixed(2)}</span>
+                              <span>₹{emiInfo.totalAmount.toFixed(2)}</span>
                             </div>
                           </div>
                         </div>
@@ -1009,7 +1009,7 @@ function CheckoutPage() {
                         <span className="component-name-summary">{comp.name}</span>
                       </div>
                     </div>
-                    <span className="component-price-summary">${comp.price || 0}</span>
+                    <span className="component-price-summary">₹{comp.price || 0}</span>
                   </div>
                 );
               })}
@@ -1018,7 +1018,7 @@ function CheckoutPage() {
             <div className="summary-calculations-modern">
               <div className="calc-row-modern">
                 <span>Subtotal:</span>
-                <span>${build.totalPrice}</span>
+                <span>₹{build.totalPrice}</span>
               </div>
               <div className="calc-row-modern">
                 <span>Shipping:</span>
@@ -1026,7 +1026,7 @@ function CheckoutPage() {
               </div>
               <div className="calc-row-modern">
                 <span>Tax (10%):</span>
-                <span>${(build.totalPrice * 0.1).toFixed(2)}</span>
+                <span>₹{(build.totalPrice * 0.1).toFixed(2)}</span>
               </div>
               {emiInfo && (
                 <>
@@ -1043,7 +1043,7 @@ function CheckoutPage() {
               <div className="calc-divider-modern"></div>
               <div className="calc-row-modern total">
                 <span>Total:</span>
-                <span>${emiInfo ? emiInfo.totalAmount.toFixed(2) : (build.totalPrice * 1.1).toFixed(2)}</span>
+                <span>₹{emiInfo ? emiInfo.totalAmount.toFixed(2) : (build.totalPrice * 1.1).toFixed(2)}</span>
               </div>
             </div>
             
