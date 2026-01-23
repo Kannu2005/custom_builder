@@ -28,6 +28,9 @@ function App() {
     return <div className="loading">Loading...</div>;
   }
 
+  // Debug: Log current path
+  console.log('Current path:', window.location.pathname);
+
   return (
     <div className="app-shell">
       <Routes>
@@ -144,7 +147,14 @@ function App() {
           </AdminRoute>
         } />
 
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="*" element={
+          <div style={{ padding: '20px', textAlign: 'center' }}>
+            <h1>Route Debug</h1>
+            <p>Current path: {window.location.pathname}</p>
+            <p>This is the catch-all route</p>
+            <a href="/">Go Home</a> | <a href="/admin/login">Admin Login</a>
+          </div>
+        } />
       </Routes>
     </div>
   );
