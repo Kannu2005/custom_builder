@@ -2,12 +2,12 @@
   "name": "custom-pc-builder",
   "version": "1.0.0",
   "description": "A comprehensive e-commerce platform for building custom PCs with advanced payment integration",
-  "main": "backend/src/server.js",
+  "main": "server.js",
   "scripts": {
     "install-all": "npm install && cd backend && npm install && cd ../frontend && npm install",
     "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev\"",
-    "build": "cd frontend && npm run build",
-    "start": "node backend/src/server.js",
+    "build": "npm install",
+    "start": "node server.js",
     "backend": "cd backend && npm run dev",
     "frontend": "cd frontend && npm run dev",
     "deploy": "cd frontend && npm run build"
