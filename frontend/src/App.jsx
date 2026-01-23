@@ -16,7 +16,6 @@ import ProfilePage from './pages/ProfilePage';
 
 // Admin Pages
 import AdminLogin from './pages/admin/AdminLogin';
-import AdminTest from './pages/admin/AdminTest';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminComponents from './pages/admin/AdminComponents';
 import AdminOrders from './pages/admin/AdminOrders';
@@ -118,7 +117,6 @@ function App() {
 
         {/* Admin Routes (No Header) */}
         <Route path="/admin" element={<Navigate to="/admin/login" replace />} />
-        <Route path="/admin/test" element={<AdminTest />} />
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin/dashboard" element={
           <AdminRoute>
