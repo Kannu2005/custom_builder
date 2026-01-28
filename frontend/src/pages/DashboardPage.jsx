@@ -456,7 +456,7 @@ function DashboardPage() {
                     <div className="summary-calculations">
                       <div className="calc-row">
                         <span>Subtotal:</span>
-                        <span>${subtotal.toFixed(2)}</span>
+                        <span>₹{subtotal.toFixed(2)}</span>
                       </div>
                       <div className="calc-row">
                         <span>Shipping:</span>
@@ -464,12 +464,12 @@ function DashboardPage() {
                       </div>
                       <div className="calc-row">
                         <span>Tax (10%):</span>
-                        <span>${tax.toFixed(2)}</span>
+                        <span>₹{tax.toFixed(2)}</span>
                       </div>
                       <div className="calc-divider"></div>
                       <div className="calc-row total">
                         <span>Total:</span>
-                        <span>${total.toFixed(2)}</span>
+                        <span>₹{total.toFixed(2)}</span>
                       </div>
                     </div>
                     

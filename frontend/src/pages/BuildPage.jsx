@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import apiClient from '../services/api';
 import SearchSuggestions from '../components/SearchSuggestions';
 import ComponentDetails from '../components/ComponentDetails';
+import ComponentCustomizer from '../components/ComponentCustomizer';
 import QuantitySelector from '../components/QuantitySelector';
 
 const CATEGORIES = [
@@ -28,11 +29,57 @@ function BuildPage() {
   const [buildName, setBuildName] = useState('');
   const [priceRange, setPriceRange] = useState({ min: '', max: '', combined: '' });
   const [sortBy, setSortBy] = useState('name');
+  
+  // Enhanced Customization Features
+  const [selectedBrand, setSelectedBrand] = useState('');
+  const [selectedCapacity, setSelectedCapacity] = useState('');
+  const [availableBrands, setAvailableBrands] = useState([]);
+  const [availableCapacities, setAvailableCapacities] = useState([]);
+  const [customizationMode, setCustomizationMode] = useState('basic'); // 'basic' or 'advanced'
+  const [showCustomizer, setShowCustomizer] = useState(false);
+  const [componentToCustomize, setComponentToCustomize] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     loadComponents();
   }, []);
+
+  // Extract unique brands and capacities when components load
+  useEffect(() => {
+    if (components.length > 0) {
+      // Extract unique brands
+      const brands = [...new Set(components.map(comp => comp.brand))].filter(Boolean).sort();
+      setAvailableBrands(brands);
+
+      // Extract capacities from RAM and Storage components
+      const capacities = new Set();
+      components.forEach(comp => {
+        if (comp.category === 'RAM' || comp.category === 'Storage') {
+          // Extract GB/TB from component name or specs
+          const name = comp.name.toLowerCase();
+          const specs = comp.specs || {};
+          
+          // Look for capacity patterns like "8GB", "16GB", "1TB", etc.
+          const capacityMatch = name.match(/(\d+)(gb|tb)/i);
+          if (capacityMatch) {
+            capacities.add(capacityMatch[0].toUpperCase());
+          }
+          
+          // Also check specs for capacity
+          if (specs.capacity) {
+            capacities.add(specs.capacity);
+          }
+        }
+      });
+      
+      setAvailableCapacities([...capacities].sort((a, b) => {
+        // Sort by numeric value
+        const aNum = parseInt(a);
+        const bNum = parseInt(b);
+        return aNum - bNum;
+      }));
+    }
+  }, [components]);
 
   const loadComponents = async () => {
     try {
@@ -71,7 +118,22 @@ function BuildPage() {
   };
 
   const filteredComponents = components.filter((comp) => {
+    // Category filter
     if (filterCategory && comp.category !== filterCategory) return false;
+    
+    // Brand filter (Enhanced Feature)
+    if (selectedBrand && comp.brand !== selectedBrand) return false;
+    
+    // Capacity filter for RAM/Storage (Enhanced Feature)
+    if (selectedCapacity && (comp.category === 'RAM' || comp.category === 'Storage')) {
+      const name = comp.name.toLowerCase();
+      const specs = comp.specs || {};
+      const hasCapacity = name.includes(selectedCapacity.toLowerCase()) || 
+                         specs.capacity === selectedCapacity;
+      if (!hasCapacity) return false;
+    }
+    
+    // Search filter
     if (searchTerm) {
       const term = searchTerm.toLowerCase();
       const matchesSearch = (
@@ -81,8 +143,11 @@ function BuildPage() {
       );
       if (!matchesSearch) return false;
     }
+    
+    // Price range filter
     if (priceRange.min && comp.price < parseFloat(priceRange.min)) return false;
     if (priceRange.max && comp.price > parseFloat(priceRange.max)) return false;
+    
     return true;
   }).sort((a, b) => {
     switch (sortBy) {
@@ -90,6 +155,8 @@ function BuildPage() {
         return a.price - b.price;
       case 'price-high':
         return b.price - a.price;
+      case 'brand':
+        return a.brand.localeCompare(b.brand);
       case 'name':
       default:
         return a.name.localeCompare(b.name);
@@ -134,6 +201,32 @@ function BuildPage() {
 
   const selectComponent = (component) => {
     setSelectedComponentDetails(component);
+  };
+
+  const clearAllFilters = () => {
+    setSearchTerm('');
+    setFilterCategory('');
+    setSelectedBrand('');
+    setSelectedCapacity('');
+    setPriceRange({ min: '', max: '', combined: '' });
+    setSortBy('name');
+  };
+
+  const handleCustomizeComponent = (component) => {
+    setComponentToCustomize(component);
+    setShowCustomizer(true);
+  };
+
+  const handleCustomizationComplete = (customizedComponent) => {
+    // Add the customized component to the build
+    handleAddToBuild(customizedComponent, 1);
+    setShowCustomizer(false);
+    setComponentToCustomize(null);
+  };
+
+  const handleCloseCustomizer = () => {
+    setShowCustomizer(false);
+    setComponentToCustomize(null);
   };
 
   const removeComponent = (category) => {
@@ -324,6 +417,68 @@ function BuildPage() {
                   </div>
                 </div>
               </div>
+
+              {/* Enhanced Brand and Capacity Filters */}
+              <div className="enhanced-filters-row">
+                <div className="brand-filter-section">
+                  <label className="control-label">
+                    <span className="filter-icon">🏷️</span>
+                    Brand Selection
+                  </label>
+                  <select
+                    value={selectedBrand}
+                    onChange={(e) => setSelectedBrand(e.target.value)}
+                    className="brand-filter-select"
+                  >
+                    <option value="">All Brands</option>
+                    {availableBrands.map((brand) => (
+                      <option key={brand} value={brand}>
+                        {brand}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="capacity-filter-section">
+                  <label className="control-label">
+                    <span className="filter-icon">💾</span>
+                    Capacity (RAM/Storage)
+                  </label>
+                  <select
+                    value={selectedCapacity}
+                    onChange={(e) => setSelectedCapacity(e.target.value)}
+                    className="capacity-filter-select"
+                  >
+                    <option value="">All Capacities</option>
+                    {availableCapacities.map((capacity) => (
+                      <option key={capacity} value={capacity}>
+                        {capacity}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="customization-mode-section">
+                  <label className="control-label">
+                    <span className="filter-icon">⚙️</span>
+                    Customization Mode
+                  </label>
+                  <div className="mode-toggle">
+                    <button
+                      className={`mode-btn ${customizationMode === 'basic' ? 'active' : ''}`}
+                      onClick={() => setCustomizationMode('basic')}
+                    >
+                      Basic
+                    </button>
+                    <button
+                      className={`mode-btn ${customizationMode === 'advanced' ? 'active' : ''}`}
+                      onClick={() => setCustomizationMode('advanced')}
+                    >
+                      Advanced
+                    </button>
+                  </div>
+                </div>
+              </div>
               
               {/* Price Range and Sort By - Side by Side */}
               <div className="price-sort-row">
@@ -363,6 +518,7 @@ function BuildPage() {
                     className="sort-select"
                   >
                     <option value="name">Name A-Z</option>
+                    <option value="brand">Brand A-Z</option>
                     <option value="price-low">Price: Low to High</option>
                     <option value="price-high">Price: High to Low</option>
                   </select>
@@ -407,11 +563,7 @@ function BuildPage() {
                   <h3>No Matches Found</h3>
                   <p>No components match your search/filter criteria.</p>
                   <button 
-                    onClick={() => {
-                      setSearchTerm('');
-                      setFilterCategory('');
-                      setPriceRange({ min: '', max: '', combined: '' });
-                    }}
+                    onClick={clearAllFilters}
                     className="retry-btn-modern"
                   >
                     Clear All Filters
@@ -730,6 +882,32 @@ function BuildPage() {
                             {component.stock > 0 ? `${component.stock} in stock` : 'Out of Stock'}
                           </div>
                         </div>
+
+                        {/* Enhanced Customization Buttons */}
+                        <div className="component-actions">
+                          <button
+                            className="quick-add-btn"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleAddToBuild(component, 1);
+                            }}
+                            disabled={component.stock === 0}
+                          >
+                            <span className="btn-icon">⚡</span>
+                            Quick Add
+                          </button>
+                          
+                          <button
+                            className="customize-btn-card"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleCustomizeComponent(component);
+                            }}
+                          >
+                            <span className="btn-icon">🎛️</span>
+                            Customize
+                          </button>
+                        </div>
                         
                         {/* Expandable Details Section */}
                         <div className="component-details-toggle">
@@ -895,16 +1073,16 @@ function BuildPage() {
                 <div className="total-breakdown">
                   <div className="total-row">
                     <span>Subtotal:</span>
-                    <span>${calculateTotal().toFixed(2)}</span>
+                    <span>₹{calculateTotal().toFixed(2)}</span>
                   </div>
                   <div className="total-row">
                     <span>Tax (estimated):</span>
-                    <span>${(calculateTotal() * 0.1).toFixed(2)}</span>
+                    <span>₹{(calculateTotal() * 0.1).toFixed(2)}</span>
                   </div>
                   <div className="total-divider"></div>
                   <div className="total-row final">
                     <span>Total:</span>
-                    <span>${(calculateTotal() * 1.1).toFixed(2)}</span>
+                    <span>₹{(calculateTotal() * 1.1).toFixed(2)}</span>
                   </div>
                 </div>
                 
@@ -930,6 +1108,15 @@ function BuildPage() {
           )}
         </div>
       </div>
+
+      {/* Component Customizer Modal */}
+      {showCustomizer && componentToCustomize && (
+        <ComponentCustomizer
+          component={componentToCustomize}
+          onCustomize={handleCustomizationComplete}
+          onClose={handleCloseCustomizer}
+        />
+      )}
     </div>
   );
 }
